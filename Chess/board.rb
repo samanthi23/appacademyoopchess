@@ -29,6 +29,48 @@ class Board
         
     end
     
+    
+    def add_piece(pos, piece)
+        raise "position is not empty" unless empty?(pos)
+        
+        self[pos] = piece
+    end
+    
+    def move_piece(turn_color, start_pos, end_pos)
+       raise "start position is empty" if empty?(start_pos)
+       
+       piece = self[start_pos]
+       if piece.color != turn_color
+          raise "You are only allowed to move your own piece"
+       elsif !piece.moves.include?(end_pos)
+           raise "Piece does not move like that"
+       elsif !piece.valid_moves.include?(end_pos)
+          raise "Piece is not allowed to move like that"
+       end
+       
+       move_piece!(start_pos, end_pos)
+       
+       
+       
+       
+    end
+    
+    def move_piece!(start_pos, end_pos)
+       piece = self[start_pos]
+       
+       raise "Piece does not move like that" unless piece.moves.include?(end_pos)
+       
+       self[end_pos] = piece
+       self[start_pos] = sentinel
+       piece.pos = end_pos
+       
+       nil  
+    end
+    
+    def empty?(pos)
+       self[pos].empty? 
+    end
+    
     def valid_pos?(pos)
         pos.all? { |coord| coord.between?(0,7)}
     end
