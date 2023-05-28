@@ -21,6 +21,14 @@ class Board
         @rows[row][col]
     end
     
+    def []=(pos, val)
+        raise "invalid pos" unless valid_pos?(pos)
+        
+        row, col = pos
+        @rows[row][col] = val
+        
+    end
+    
     def valid_pos?(pos)
         pos.all? { |coord| coord.between?(0,7)}
     end
