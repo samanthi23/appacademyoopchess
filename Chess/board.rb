@@ -14,6 +14,17 @@ class Board
         @rows.flatten.reject(&:empty)
     end
     
+    def [](pos)
+        raise "invalid pos" unless valid_pos?(pos)
+        
+        row, col = pos
+        @rows[row][col]
+    end
+    
+    def valid_pos?(pos)
+        pos.all? { |coord| coord.between?(0,7)}
+    end
+    
     private
     
     attr_reader :sentinel
