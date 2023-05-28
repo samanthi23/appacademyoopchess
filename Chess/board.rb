@@ -67,6 +67,10 @@ class Board
        nil  
     end
     
+    def pieces 
+       @rows.flatten.reject(&:empty?) 
+    end
+    
     def empty?(pos)
        self[pos].empty? 
     end
