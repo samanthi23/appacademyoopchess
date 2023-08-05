@@ -26,3 +26,5 @@ new_board
 
 piece.pos
 
+# each_with_object
+
