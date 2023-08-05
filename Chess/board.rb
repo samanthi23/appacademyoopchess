@@ -79,6 +79,32 @@ class Board
         pos.all? { |coord| coord.between?(0,7)}
     end
     
+    def checkmate?(color)
+        return false unless in_check?(color)
+        
+        pieces.select { |p| p.color == color }.all? do |piece|
+            piece.valid_moves.empty?
+        end
+    end
+    
+    def dup
+        new_board = Board.new(false)
+        
+        pieces.each do |piece|
+           piece.class.new(piece.color, new_board, piece.pos) 
+        end
+        
+        new_board
+        
+    end
+    
+    def in_check?(color) 
+        king_pos = find_king(color).pos
+        pieces.any? do |p|
+           p.color = !color && p.moves.include?(king_pos) 
+        end
+    end 
+    
     private
     
     attr_reader :sentinel
