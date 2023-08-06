@@ -28,3 +28,18 @@ piece.pos
 
 # each_with_object
 
+# in pry
+
+press 'q' to exit scroll
+
+q
+
+# in pry
+
+load 'board.rb'
+
+b = Board.new(true)
+
+pos = [1,1]
+
+b = [pos]

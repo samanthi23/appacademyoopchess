@@ -21,16 +21,16 @@ class Board
         @rows[row][col]
     end
     
-    def []=(pos, val)
+    def []=(pos, piece)
         raise "invalid pos" unless valid_pos?(pos)
         
         row, col = pos
-        @rows[row][col] = val
+        @rows[row][col] = piece
         
     end
     
     
-    def add_piece(pos, piece)
+    def add_piece(piece, pos)
         raise "position is not empty" unless empty?(pos)
         
         self[pos] = piece
@@ -101,7 +101,7 @@ class Board
     def in_check?(color) 
         king_pos = find_king(color).pos
         pieces.any? do |p|
-           p.color = !color && p.moves.include?(king_pos) 
+           p.color != color && p.moves.include?(king_pos) 
         end
     end 
     
@@ -117,14 +117,14 @@ class Board
     
     def fill_back_row(color)
        back_pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook] 
-       i = color == "white" ? 7: 0
+       i = color == :white ? 7: 0
        back_pieces.each_with_index do |piece_class, j| 
            piece_class.new(color, self, [i,j])
        end
     end
     
     def fill_pawns_row(color)
-        i = color == "white" ? 6: 1
+        i = color == :white ? 6: 1
         8.times { |j| Pawn.new(color, self, [i,j]) }
      
     end
