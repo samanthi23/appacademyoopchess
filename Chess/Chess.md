@@ -42,4 +42,12 @@ b = Board.new(true)
 
 pos = [1,1]
 
-b = [pos]
+b[pos]
+
+color = :black
+
+start_pos = [1,0]
+
+end_pos = [2,0]
+
+b.move_piece(color, start_pos, end_pos)
